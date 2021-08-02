@@ -15,8 +15,8 @@ jobs:
       - name: Compile PDF
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: cv-gboeing.tex
-
+          root_file: cv-blibgober.tex
+          
       - name: Publish PDF
         uses: appleboy/scp-action@v0.1.1
         with:
