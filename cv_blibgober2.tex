@@ -19,6 +19,10 @@
 \usepackage{setspace} % custom line spacing
 \usepackage[backend=biber,isbn=false,url=false,maxcitenames=50]{biblatex} %bib files
 \usepackage[symbol]{footmisc} %cool footnotes
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 % what is your name?
 
@@ -119,16 +123,31 @@
     %\item[2020] \tab{}\enquote{Agency Failure and Individual Accountability,} Department of Political Science, Georgetown University, Jan 24.
 \newcommand{\SPSA}{Southern Political Science Association (SPSA) Annual Conference}
 \newcommand{\APSA}{American Political Science Association (APSA) Annual Conference}
-\newcommand{\course}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} 
-
-
+\newcommand{\course}[4]{\item[#1] \tab{}#3 (#4). #2.} %{year}{semester}{title}{level}{role} 
+\newcommand{\tacourse}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} 
 
 \begin{document}
+	\pagestyle{fancy}
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead[R]{
+	\ifthenelse{\value{page}=1}{
+	\begin{tikzpicture}
+	\clip (0,0)  circle (10mm) ;
+	\node[anchor=center] at (0,0) {\includegraphics[width=20mm]{polysciatnu.jpg}}; 
+	%adjust this coordinate to move image
+	\end{tikzpicture}
+	}{%endfirst page
+	}
+	}
     \raggedright{}
 
     % display your name as the document title
+    \begin{minipage}[t]{0.6\textwidth}
+	\raggedright{}
     \namefont{\myname}
-
+	\end{minipage}
+	\hfill
     % affiliation and contact info blocks
     \vspace{1em}
     \begin{minipage}[t]{0.6\textwidth}
@@ -182,7 +201,7 @@
 
     \subsection*{Peer-Reviewed Journal Articles}
     \begin{tablist}
-    \item[2022] \tab{}\citeworkingpaper[]{Abi-Hassan2021} (Conditionally Accepted, \textit{Political Analysis})
+    \item[2022] \tab{}\citeworkingpaper[]{Abi-Hassan2021} (Forthcoming, \textit{Political Analysis})
     \item[2020] \tab{}\citejournalarticle{Libgober2020}
     
     \item[2020] \tab{}\citejournalarticle{Libgober2020b}
@@ -192,11 +211,12 @@
     
     \subsection*{Working Papers\footnote[2]{Drafts of all working papers are available at \href{https://brianlibgober.com}{https://brianlibgober.com}.}}
     \begin{tablist}
+	\item[2022]	\tab{}\citeworkingpaper{libgober_rashin_2022} (R\&R, \textit{American Politics Research})
 	\item[2021] \tab{}\citeworkingpaper{Libgober2021} (R\&R, \textit{PLOS: ONE})
     \item[2021] \tab{}\citeworkingpaper{Carpenter2021} 
-    \item[2021] \tab{}\citeworkingpaper{Chen2021} (R\&R, JPART)
+    \item[2021] \tab{}\citeworkingpaper{Chen2021} (R\&R, \textit{JPART})
     \item[2021] \tab{}\citeworkingpaper{Jerzak2021}
-    \item[2020] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, JPART) %agencyfailure
+    \item[2020] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, \textit{JPART}) %agencyfailure
     \item[2019] \tab{}\citeworkingpaper{Libgober2019a}
     \end{tablist}
     
@@ -258,6 +278,8 @@
     
     \subsection*{Conference Presentations}
     \begin{tablist}
+	\talk{2022}{Bureaucratic Information Acquisition}{Executive Politics at Michigan}{October 24}
+	\talk{2022}{Grouptalk}{APSA Pre-Conference: Frontiers in Money in Politics Research}{September 14}
     \talk{2022}{Ex Post Lobbying and the Dynamcis of Legislative Attention}{Copenhagen Business School Money in Poltics Conference}{June 16}
     \talk{2021}{The Politics of Place: Evidence from Refugees to the US}{\APSA}{Oct 2}
     \talk{2021}{Ex Post Lobbying and the Dynamics of Legislative Attention}{\APSA}{Oct 1}
@@ -286,7 +308,7 @@
     \subsection*{Other Conference Participation}
     \begin{tablist}
     \talk{2021}{Lobbyists and Lobbying, Strategies and Goals}{\APSA}{Oct 3 (discussant)}    
-    \talk{2021}{Politics of Rulemaking in the Administration State  }{\APSA}{Oct 1 (discussant)}    
+    \talk{2021}{Politics of Rulemaking in the Administration State}{\APSA}{Oct 1 (discussant)}    
     \talk{2021}{Legislative Productivity in the US}{\APSA}{Sep 29 (chair and discussant)}
     \talk{2021}{Separation of Powers and Interbranch Relationships}{\APSA}{Sep 30 (chair and discussant)}
     \talk{2021}{Advances in Law Enforcement Policy Research}{\APSA}{Sep 30 (chair)}
@@ -298,6 +320,7 @@
     \section*{Departmental Talks}
 
     \begin{tablist}
+	\talk{2022}{Lawyers as Lobbyists: Regulatory Advocacy in American Finance}{Institute for Policy Research Colloquium, Northwestern University}{Oct 10}
     \talk{2020}{Does Electoral Politics Explain the Distribution of CDC Test Kits? Evidence from FOIA}{ University of California, San Diego. School of Global Policy and Strategy Junior Faculty Brownbag}{Oct 28}
     \talk{2018}{Meetings, Comments, and the Distributive Politics of Administrative Policymaking}{Harvard University. Political Economy Workshop}{Oct 29}
     %
@@ -311,7 +334,11 @@
     %
     \talk{2016}{Getting a Lawyer While Black: A Field Experiment}{Harvard Law School. Law and Economics Seminar}{Mar 3}
     \end{tablist}
-    
+	
+    \section*{Grants}
+	\begin{tablist}
+	\item[2022-25]	\tab{}National Science Foundation, ``Unpacking Compound Treatments in Email Audit Experiments,'' \$403,882
+	\end{tablist}
     
     \section*{Fellowships}
     
@@ -323,38 +350,45 @@
     \end{tablist}
 
     \section*{Teaching}
+	
+	\subsection*{Northwestern University}
+	\begin{tablist}
+	\course{2022}{Fall-Spring}{R Workshop}{Grad}
+	\course{2022}{Fall}{American Politics Field Seminar}{Grad}
+	\course{2022}{Fall}{Money in Politics}{Undergrad}
+	\end{tablist}
     
     \subsection*{University of California San Diego}
     \begin{tablist}
-    \course{2021}{Fall}{Policy Analysis and Social Welfare}{MPP/MIA}{Primary Instructor}
-    \course{2021}{Fall}{Law and Administration}{MPP/MIA}{Primary Instructor}
-    \course{2021}{Spring}{Law and Administration}{MPP/MIA}{Primary Instructor}
-    \course{2021}{Spring}{Bureaucratic Politics}{MPP/MIA}{Primary Instructor}
-    \course{2021}{Winter}{Interest Groups and the Policymaking Process}{MPP/MIA}{Primary Instructor}
+    \course{2021}{Fall}{Policy Analysis and Social Welfare}{MPP/MIA}{}
+    \course{2021}{Fall}{Law and Administration}{MPP/MIA}{}
+    \course{2021}{Spring}{Law and Administration}{MPP/MIA}{}
+    \course{2021}{Spring}{Bureaucratic Politics}{MPP/MIA}{}
+    \course{2021}{Winter}{Interest Groups and the Policymaking Process}{MPP/MIA}{}
     \end{tablist}
     
     \subsection*{Yale University}
     \begin{tablist}
-    \course{2019}{Fall}{American Mass Media: Law, Politics, and Policy}{Undergraduate}{Primary Instructor}
-    \course{2019}{Spring}{Money in Politics}{MPP/MIA}{Primary Instructor}
+    \course{2019}{Fall}{American Mass Media: Law, Politics, and Policy}{Undergrad}{}
+    \course{2019}{Spring}{Money in Politics}{Undergrad}{}
     \end{tablist}
     
     
     \subsection*{Harvard University}
     \begin{tablist}
-    \course{2017}{Fall}{Formal Models of Domestic Politics}{PhD}{Teaching Assistant (Primary Instructor: Horacio Larreguy)}
-    \course{2016}{Fall}{Bureaucratic Politics}{Undergraduate/Graduate}{Teaching Assistant (Primary Instructor: Daniel Carpenter)}
+    \tacourse{2017}{Fall}{Formal Models of Domestic Politics}{PhD}{Teaching Assistant (Primary Instructor: Horacio Larreguy)}
+    \tacourse{2016}{Fall}{Bureaucratic Politics}{Undergraduate/Graduate}{Teaching Assistant (Primary Instructor: Daniel Carpenter)}
     \end{tablist}
 
     \subsection*{Massachussets Institute of Technology}
     \begin{tablist}
-    \course{2015}{Spring}{Constitutional Law \& Judicial Politics}{PhD}{Course Assistant (Primary Instructor: Chris Warshaw)}
+    \tacourse{2015}{Spring}{Constitutional Law \& Judicial Politics}{PhD}{Course Assistant (Primary Instructor: Chris Warshaw)}
     \end{tablist}
 
    \subsection*{University of Michigan}
 
    \begin{tablist}
-    \course{2013}{Fall}{Mass Media and Election Politics}{Undergraduate}{Graduate Student Instructor (Primary Instructor: Nicholas Valentino)}
+    \tacourse{2013}{Fall}{Mass Media and Election Politics}{Undergraduate}{Graduate Student Instructor (Primary Instructor: Nicholas Valentino)}
     \end{tablist}
     
     
