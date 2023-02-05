@@ -132,11 +132,11 @@
 	\renewcommand{\headrulewidth}{0pt}
 	\fancyhead[R]{
 	\ifthenelse{\value{page}=1}{
-	\begin{tikzpicture}
-	\clip (0,0)  circle (10mm) ;
-	\node[anchor=center] at (0,0) {\includegraphics[width=20mm]{polysciatnu.jpg}}; 
+%	\begin{tikzpicture}
+%	\clip (0,0)  circle (10mm) ;
+%	\node[anchor=center] at (0,0) {\includegraphics[width=20mm]{polysciatnu.jpg}}; 
 	%adjust this coordinate to move image
-	\end{tikzpicture}
+%	\end{tikzpicture}
 	}{%endfirst page
 	}
 	}
@@ -201,7 +201,9 @@
 
     \subsection*{Peer-Reviewed Journal Articles}
     \begin{tablist}
-    \item[2022] \tab{}\citeworkingpaper[]{Abi-Hassan2021} (Forthcoming, \textit{Political Analysis})
+     \item[2023] \tab{}\citeworkingpaper{Chen2021} (Accepted, \textit{JPART})
+    \item[2023] \tab{}\citejournalarticle[]{Abi-Hassan2023}
+    \item[2023] \tab{}\citejournalarticle{libgober2023identifying}
     \item[2020] \tab{}\citejournalarticle{Libgober2020}
     
     \item[2020] \tab{}\citejournalarticle{Libgober2020b}
@@ -211,12 +213,11 @@
     
     \subsection*{Working Papers\footnote[2]{Drafts of all working papers are available at \href{https://brianlibgober.com}{https://brianlibgober.com}.}}
     \begin{tablist}
+           \item[\the\year] \tab{}\citeworkingpaper{Bolotnyy2021}
+     \item[2022] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, \textit{JPART}) %agencyfailure
 	\item[2022]	\tab{}\citeworkingpaper{libgober_rashin_2022} (R\&R, \textit{American Politics Research})
-	\item[2021] \tab{}\citeworkingpaper{Libgober2021} (R\&R, \textit{PLOS: ONE})
     \item[2021] \tab{}\citeworkingpaper{Carpenter2021} 
-    \item[2021] \tab{}\citeworkingpaper{Chen2021} (R\&R, \textit{JPART})
     \item[2021] \tab{}\citeworkingpaper{Jerzak2021}
-    \item[2020] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, \textit{JPART}) %agencyfailure
     \item[2019] \tab{}\citeworkingpaper{Libgober2019a}
     \end{tablist}
     
@@ -226,7 +227,6 @@
     \item[\the\year] \tab{}\citeworkingpaper{Libgober2021b}
     \item[\the\year] \tab{}\citeworkingpaper{Libgober2021a} (Winner, Herbert Kaufman Award for Best Paper Presented at APSA 2021)
     \item[\the\year] \tab{}\citeworkingpaper{Li2021}
-    \item[\the\year] \tab{}\citeworkingpaper{Bolotnyy2021}
     \end{tablist}
 
     \subsection*{Other Publications}
@@ -240,6 +240,7 @@
     \section*{Invited Talks}
 
     \begin{tablist}
+    \talk{2023}{Lawyers as Lobbyists}{Yale University. Department of Political Science}{Feb 1}
 	\talk{2022}{Making Regulators Reasonable}{University of Michigan Law School}{Mar 24}
 	
     \talk{2021}{Making Regulators Reasonable}{Hebrew University. Department of Political Science}{Dec 15}
@@ -278,6 +279,8 @@
     
     \subsection*{Conference Presentations}
     \begin{tablist}
+    \talk{2023}{Conference on Regulatory Reform}{Stanford Law School}{May 11}
+    \talk{2023}{Access to Justice (A2J) Roundtable}{University of South Carolina Law School}{Mar 30}
 	\talk{2022}{Bureaucratic Information Acquisition}{Executive Politics at Michigan}{October 24}
 	\talk{2022}{Grouptalk}{APSA Pre-Conference: Frontiers in Money in Politics Research}{September 14}
     \talk{2022}{Ex Post Lobbying and the Dynamcis of Legislative Attention}{Copenhagen Business School Money in Poltics Conference}{June 16}
