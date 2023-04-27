@@ -17,7 +17,7 @@
 \usepackage{enumitem} % enumerate with [resume] option
 \usepackage{titlesec} % allow custom section fonts
 \usepackage{setspace} % custom line spacing
-\usepackage[backend=biber,isbn=false,url=false,maxcitenames=50]{biblatex} %bib files
+\usepackage[backend=biber,isbn=false,eprint=false,url=false,maxcitenames=50]{biblatex} %bib files
 \usepackage[symbol]{footmisc} %cool footnotes
 \usepackage{tikz}
 \usepackage{graphicx}
@@ -97,6 +97,7 @@
 %setup bibliography
     \addbibresource{LibgoberPublications.bib}
 
+
 \DeclareCiteCommand{\citejournalarticle}
     {\usebibmacro{prenote}}
     {\usebibmacro{citeindex}%
@@ -116,13 +117,39 @@
     \usebibmacro{journal}
     }
     {\usebibmacro{postnote}}
-
+	
+	
+\newbibmacro*{publisher+location}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}
+    {\setunit*{\addcolon\space}}%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \newunit}
+  
+  
+\DeclareCiteCommand{\citechapter}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+	\usebibmacro{author}%
+	\addperiod%
+	In\space%
+	\usebibmacro{booktitle}%
+    %\usebibmacro{doi+eprint+url}%
+    \usebibmacro{editor}\space%
+	\usebibmacro{publisher+location}%    
+	 }
+    {\usebibmacro{postnote}}
+    
 %%%%%%%%%%%%%%% CUSTOM COMMANDS to AVOID MISTAKES
 
 \newcommand{\talk}[4]{\item[#1]{\tab{}#3. \enquote{#2,} #4.}} %{year}{title}{location}{day}
     %\item[2020] \tab{}\enquote{Agency Failure and Individual Accountability,} Department of Political Science, Georgetown University, Jan 24.
 \newcommand{\SPSA}{Southern Political Science Association (SPSA) Annual Conference}
 \newcommand{\APSA}{American Political Science Association (APSA) Annual Conference}
+\newcommand{\MPSA}{Midwestern Political Science Association (MPSA) Annual Conference}
 \newcommand{\course}[4]{\item[#1] \tab{}#3 (#4). #2.} %{year}{semester}{title}{level}{role} 
 \newcommand{\tacourse}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} 
 
@@ -201,7 +228,7 @@
 
     \subsection*{Peer-Reviewed Journal Articles}
     \begin{tablist}
-     \item[2023] \tab{}\citejournalarticle{ChenGober2023}.
+	\item[2023] \tab{}\citejournalarticle{ChenGober2023}
     \item[2023] \tab{}\citejournalarticle[]{Abi-Hassan2023}
     \item[2023] \tab{}\citejournalarticle{libgober2023identifying}
     \item[2020] \tab{}\citejournalarticle{Libgober2020}
@@ -213,10 +240,10 @@
     
     \subsection*{Working Papers\footnote[2]{Drafts of all working papers are available at \href{https://brianlibgober.com}{https://brianlibgober.com}.}}
     \begin{tablist}
-           \item[\the\year] \tab{}\citeworkingpaper{Bolotnyy2021}
-     \item[2022] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, \textit{JPART}) %agencyfailure
+	\item[\the\year] \tab{}\citeworkingpaper{Bolotnyy2021}
+    \item[2023] \tab{}\citeworkingpaper{Carpenter2021} (R\&R, \textit{Perspectives on Politics})
+    \item[2022] \tab{}\citeworkingpaper{Libgober2020c}  (R\&R, \textit{JPART}) %agencyfailure
 	\item[2022]	\tab{}\citeworkingpaper{libgober_rashin_2022} (R\&R, \textit{American Politics Research})
-    \item[2021] \tab{}\citeworkingpaper{Carpenter2021} 
     \item[2021] \tab{}\citeworkingpaper{Jerzak2021}
     \item[2019] \tab{}\citeworkingpaper{Libgober2019a}
     \end{tablist}
@@ -231,7 +258,7 @@
 
     \subsection*{Other Publications}
     \begin{tablist}
-    \item[In Press]     \tab{}\citejournalarticle{Carpentera}
+    \item[2023] \tab{}\citechapter{Carpentera}
     \item[2020] \tab{}\citejournalarticle{Libgober2019}
     \item[2018] \tab{}\citejournalarticle{Carpenter2018}
     \item[2015] \tab{}\citejournalarticle{Libgober2015a}
@@ -280,6 +307,9 @@
     \subsection*{Conference Presentations}
     \begin{tablist}
     \talk{2023}{Conference on Regulatory Reform}{Stanford Law School}{May 11}
+    \talk{2023}{Interest Group Workshop}{Princeton University}{May 5}
+	\talk{2023}{Who Governs Associations}{\MPSA}{April 14}
+	\talk{2023}{Grouptalk}{\MPSA}{April 13} 
     \talk{2023}{Access to Justice (A2J) Roundtable}{University of South Carolina Law School}{Mar 30}
 	\talk{2022}{Bureaucratic Information Acquisition}{Executive Politics at Michigan}{October 24}
 	\talk{2022}{Grouptalk}{APSA Pre-Conference: Frontiers in Money in Politics Research}{September 14}
@@ -310,6 +340,7 @@
 
     \subsection*{Other Conference Participation}
     \begin{tablist}
+	\talk{2023}{Interest Groups in the American Context}{\MPSA}{April 14 (discussant)}
     \talk{2021}{Lobbyists and Lobbying, Strategies and Goals}{\APSA}{Oct 3 (discussant)}    
     \talk{2021}{Politics of Rulemaking in the Administration State}{\APSA}{Oct 1 (discussant)}    
     \talk{2021}{Legislative Productivity in the US}{\APSA}{Sep 29 (chair and discussant)}
@@ -341,6 +372,8 @@
     \section*{Grants}
 	\begin{tablist}
 	\item[2022-25]	\tab{}National Science Foundation, ``Unpacking Compound Treatments in Email Audit Experiments,'' \$403,882
+	\item[2023]	\tab{}Institute for Policy Research Program (SURA), \$2,975
+	\item[2023]	\tab{}Farrell Fellowship Program, \$7,500.
 	\end{tablist}
     
     \section*{Fellowships}
