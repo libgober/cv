@@ -1,0 +1,256 @@
+%!TeX program = pdflatex
+% Brian Libgober's Curriculum Vitae
+% Email: blibgober@ucsed.edu
+% Web: https://brianlibgober.com/
+% Repo: https://github.com/libgober/cv
+
+\documentclass[12pt,letterpaper]{report}
+
+\usepackage[T1]{fontenc} % output T1 font encoding (8-bit) for accented characters as single glyph
+\usepackage[strict,autostyle]{csquotes} % smart and nestable quote marks
+\usepackage[USenglish]{babel} % regionalize hyphens, quote marks, etc automatically
+\usepackage{microtype}% improve text appearance with kerning, etc
+\usepackage{datetime} % enable formatting of date output
+\usepackage{tabto}    % make nice tabbing
+\usepackage{hyperref} % enable hyperlinks and pdf metadata
+\usepackage{geometry} % manually set page margins
+\usepackage{enumitem} % enumerate with [resume] option
+\usepackage{titlesec} % allow custom section fonts
+\usepackage{setspace} % custom line spacing
+\usepackage[backend=biber,isbn=false,eprint=false,url=false,maxcitenames=50,style=chicago-authordate]{biblatex} %bib files
+\usepackage[symbol]{footmisc} %cool footnotes
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% what is your name?
+
+\newcommand{\myname}{Brian Libgober}
+
+% select default typefaces
+\usepackage{ebgaramond} % document's serif typeface
+\usepackage{helvet}     % document's sans serif typeface
+
+% how far to tab for list items with left-aligned date: different fonts need different widths
+\newcommand{\listtabwidth}{1.7cm}
+
+% define font to use as document's title
+\newcommand{\namefont}[1]{{\normalfont\bfseries\Huge{#1}}}
+
+% set section heading fonts and before/after spacing
+\SetTracking{encoding=*, family=\sfdefault}{30} % increase sans serif headings tracking
+\titleformat{\section}{\lsstyle\sffamily\small\bfseries\uppercase}{}{}{}{}
+\titlespacing{\section}{0pt}{30pt plus 4pt minus 4pt}{8pt plus 2pt minus 2pt}
+
+% set subsection heading fonts and before/after spacing
+\titleformat{\subsection}{\lsstyle\sffamily\footnotesize\bfseries}{}{}{}{}
+\titlespacing{\subsection}{0pt}{16pt plus 4pt minus 4pt}{4pt plus 2pt minus 2pt}
+
+% set page margins (assumes letter paper)
+\geometry{body={6.5in, 9.0in},
+    left=1.0in,
+    top=1.0in}
+
+% prevent paragraph indentation
+\setlength\parindent{0em}
+
+% set line spacing
+\setstretch{0.9}
+
+% define space between list items
+\newcommand{\listitemspace}{0.25em}
+
+% make unordered lists without bullets and use compact spacing
+\renewenvironment{itemize}
+{\begin{list}{}{\setlength{\leftmargin}{0em}
+                \setlength{\parskip}{0em}
+                \setlength{\itemsep}{\listitemspace}
+                \setlength{\parsep}{\listitemspace}}}
+{\end{list}}
+
+% make tabbed lists so content is left-aligned next to years
+\TabPositions{\listtabwidth}
+\newlist{tablist}{description}{3}
+\setlist[tablist]{leftmargin=\listtabwidth,
+    labelindent=0em,
+    topsep=0em,
+    partopsep=0em,
+    itemsep=\listitemspace,
+    parsep=\listitemspace,
+    font=\normalfont}
+
+% print only the month and year when using \today
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
+% define hyperlink appearance and metadata for pdf properties
+\hypersetup{
+    colorlinks  = true,
+    urlcolor    = black,
+    pdfauthor   = {\myname},
+    pdfkeywords = {city planning, housing, street networks, transportation, urban design, urban informatics},
+    pdftitle    = {\myname: Curriculum Vitae},
+    pdfsubject  = {Curriculum Vitae},
+    pdfpagemode = UseNone
+}
+
+%setup bibliography
+    \addbibresource{LibgoberPublications.bib}
+
+
+\DeclareCiteCommand{\citejournalarticle}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+    \usebibmacro{journal}%
+    \usebibmacro{doi+eprint+url}%
+    \usebibmacro{author}.%
+    }
+    {\usebibmacro{postnote}}
+    
+\DeclareCiteCommand{\citeworkingpaper}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+    \usebibmacro{doi+eprint+url}%
+    \usebibmacro{author}.
+    \usebibmacro{journal}
+    }
+    {\usebibmacro{postnote}}
+	
+	
+\newbibmacro*{publisher+location}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}
+    {\setunit*{\addcolon\space}}%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \newunit}
+  
+  
+\DeclareCiteCommand{\citechapter}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+	\usebibmacro{author}%
+	\addperiod%
+	In\space%
+	\usebibmacro{booktitle}%
+    %\usebibmacro{doi+eprint+url}%
+    \usebibmacro{editor}\space%
+	\usebibmacro{publisher+location}%    
+	 }
+    {\usebibmacro{postnote}}
+    
+%%%%%%%%%%%%%%% CUSTOM COMMANDS to AVOID MISTAKES
+
+\newcommand{\talk}[4]{\item[#1]{\tab{}#3. \enquote{#2,} #4.}} %{year}{title}{location}{day}
+    %\item[2020] \tab{}\enquote{Agency Failure and Individual Accountability,} Department of Political Science, Georgetown University, Jan 24.
+\newcommand{\SPSA}{Southern Political Science Association (SPSA) Annual Conference}
+\newcommand{\APSA}{American Political Science Association (APSA) Annual Conference}
+\newcommand{\MPSA}{Midwestern Political Science Association (MPSA) Annual Conference}
+\newcommand{\course}[4]{\item[#1] \tab{}#3 (#4). #2.} %{year}{semester}{title}{level}{role} 
+\newcommand{\tacourse}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} }
+
+\begin{document}
+	\pagestyle{fancy}
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead[R]{
+	\ifthenelse{\value{page}=1}{
+%	\begin{tikzpicture}
+%	\clip (0,0)  circle (10mm) ;
+%	\node[anchor=center] at (0,0) {\includegraphics[width=20mm]{polysciatnu.jpg}}; 
+	%adjust this coordinate to move image
+%	\end{tikzpicture}
+	}{%endfirst page
+	}
+	}
+    \raggedright{}
+
+    % display your name as the document title
+    \begin{minipage}[t]{0.6\textwidth}
+	\raggedright{}
+    \namefont{\myname}
+	\end{minipage}
+	\hfill
+    % affiliation and contact info blocks
+    \vspace{1em}
+    \begin{minipage}[t]{0.6\textwidth}
+        % current primary affiliation, left-aligned
+        \flushleft{} Department of Political Science \\
+         Northwestern University
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.395\textwidth}
+        % contact info details, right-aligned
+        \flushright{}
+        \href{mailto:brian.libgober@northwestern.edu}{brian.libgober@northwestern.edu} \\
+        \href{https://brianlibgober.com}{brianlibgober.com} \\
+         +1 708 642 4741 \\
+        %\href{https://github.com/libgober/cv/raw/main/cv-blibgober.pdf}{CV Latest Version}
+    \end{minipage}
+    
+\input{sections/appointments}
+\input{sections/education}
+
+\section*{Key Publications}  
+
+\begin{tablist}[labelsep=0em]
+
+\item[] \fullcite{LibgoberCarpenter2024}
+
+\item[] \fullcite{ChenGober2023}
+
+\item[] \fullcite{Libgober2020}
+\item[] \fullcite{Libgober2020b}
+
+\item[] \fullcite{Libgober2019}
+
+\end{tablist}
+
+%     \end{tablist}
+    
+\input{sections/grants_awards_honors}
+
+\section*{Selected Invited Talks}
+
+    \begin{tablist}
+    \talk{2024}{White Shoes, Hidden Hands}{Emory University, Department of Political Science}{Feb 8}
+    \talk{2023}{Lawyers as Lobbyists}{Yale University. Department of Political Science}{Feb 1}
+	\talk{2022}{Making Regulators Reasonable}{University of Michigan Law School}{Mar 24}
+	
+    \talk{2021}{Making Regulators Reasonable}{Hebrew University. Department of Political Science}{Dec 15}
+    	
+	\talk{2021}{Making Regulators Reasonable}{Tel Aviv University. Department of Political Science}{Dec 13}
+		
+    \talk{2020}{Agency Failure and Individual Accountability}{Georgetown University. Department of Government}{Jan 24}
+
+    \talk{2019}{Meetings, Comments, and the Distributive Politics of Administrative Policymaking}{Harvard Law School}{Nov 5}    
+    %
+    \talk{2019}{Meetings, Comments, and the Distributive Politics of Administrative Policymaking}{Berkeley Law School. Jurisprudence and Social Policy Program}{Feb 7}    
+    %
+    \talk{2019}{Meetings, Comments, and the Distributive Politics of Administrative Policymaking}{Harvard Business School. Business Government and International Economy Unit}{Nov 5}   
+    % 
+    
+    \end{tablist}
+
+\section*{Selected Recent Conference Activity}
+    \begin{tablist}
+    \talk{2024}{Summer Institute on Organizations and Their Effectiveness}{Stanford CASBS}{July 7-19}
+    \talk{2024}{Summer Academy on the American Political Economy}{UC Berkeley}{May 20-23}
+    \talk{2023}{Conference on Regulatory Reform}{Stanford Law School}{May 11}
+    \talk{2023}{Interest Group Workshop}{Princeton University}{May 5}
+	\talk{2022}{Executive Politics at Michigan}{University of Michigan}{October 24}
+    \talk{2022}{Ex Post Lobbying and the Dynamics of Legislative Attention}{Copenhagen Business School Money in Poltics Conference}{June 16}
+
+    \end{tablist}
+    
+    % display today's date as Month Year after a vertical space below the end of the text
+    \begin{center}
+        \vfill
+        Updated \monthyeardate\today
+    \end{center}
+
+\end{document}
