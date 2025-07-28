@@ -8,12 +8,14 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout repo
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v4
       - name: Compile PDF
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: cv_blibgober2.tex
- 
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF
+          path: cv_blibgober2.pdf
