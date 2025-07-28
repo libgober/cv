@@ -3,7 +3,7 @@ name: Build LaTeX document
 on:
   push:
     branches: [main]
-
+  workflow_dispatch:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
