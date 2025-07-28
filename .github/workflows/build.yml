@@ -15,5 +15,5 @@ jobs:
       - name: Compile PDF
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: cv-blibgober.tex
+          root_file: cv_blibgober2.tex
  
