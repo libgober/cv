@@ -154,9 +154,23 @@
 \newcommand{\course}[4]{\item[#1] \tab{}#3 (#4). #2.} %{year}{semester}{title}{level}{role} 
 \newcommand{\tacourse}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} 
 
+\usepackage{marginnote}
+\usepackage{etoolbox} % For counter manipulation
+
+% Set up a counter for publications
+\newcounter{pubcount}
+\setcounter{pubcount}{16} % Start the counter at your highest number
+
+\newcommand{\countthis}{%
+    \marginnote{No. \arabic{pubcount}}\addtocounter{pubcount}{-1}
+}
+
+
 \begin{document}
 	\pagestyle{fancy}
 	\fancyhf{}
+    \fancyfoot[C]{\thepage}  % Page number centered in the footer
+    \renewcommand{\footrulewidth}{0pt}  % Remove footer rule
 	\renewcommand{\headrulewidth}{0pt}
 	\fancyhead[R]{
 	\ifthenelse{\value{page}=1}{
@@ -192,13 +206,12 @@
          +1 708 642 4741 \\
         %\href{https://github.com/libgober/cv/raw/main/cv-blibgober.pdf}{CV Latest Version}
     \end{minipage}
-    
 
     \section*{Education}
 
     \begin{tablist}
 
-        \item[Ph.D.] \tab{}Government, Harvard University, 2018
+        \item[Ph.D.] \tab{}Government, Harvard University, 2018 \newline Dissertation Committee: Daniel Carpenter (Chair), Kenneth Shepsle, Jon Rogowski
         \item[M.A.]  \tab{}Statistics, Harvard University, 2017
         \item[J.D.]  \tab{}University of Michigan Law School, \textit{cum laude}, 2015
         \item[B.A.]  \tab{}Mathematics and Philosophy, University of Chicago, \textit{with honors}, 2010
@@ -227,26 +240,30 @@
                              Postdoctoral Associate, Department of Political Science \\ 
 
     \end{tablist}
-    
+
+    \section*{Professional interests}
+    American Politics, Political Institutions, Executive Branch Politics, Lobbying, Special Interests,  Political Economy, Public Policy, Law and Politics
+
+
     \section*{Publications}
 
 	
 	\subsection*{Book Project}
 	\textit{White Shoes, Hidden Hands: Lawyers, Lobbying, and the Administrative State}. University of Chicago Press. (under contract, manuscript in preparation). 
  
-    \subsection*{Peer-Reviewed Journal Articles}
+    \subsection*{Peer-Reviewed Journal Articles\footnote[2]{Unless otherwise indicated, Libgober is PI or co-PI on all papers. Student co-authors are identified by *.}}
     \begin{tablist}
-     \item[2024] \tab{}\citejournalarticle{LibgoberCarpenter2024}
-     \item[2024] \tab{}\citejournalarticle{ChenGober2023}
-     \item[2024] \tab{}\citejournalarticle{Jerzak2024}
-     \item[2024] \tab{}\citejournalarticle{LibgoberSciData2024}
-     \item[2023] \tab{}\citejournalarticle{PashleyLibgoberEtAl2023}
-    \item[2023]	\tab{}\citejournalarticle{LibgoberRashin2023}
-    \item[2023] \tab{}\citejournalarticle[]{Abi-Hassan2023}
-    \item[2023] \tab{}\citejournalarticle{libgober2023identifying}
-    \item[2020] \tab{}\citejournalarticle{Libgober2020}
-    \item[2020] \tab{}\citejournalarticle{Libgober2020b}
-    \item[2020] \tab{}\citejournalarticle{Carpenter2020}
+     \item[2024] \tab{}\countthis\citejournalarticle{LibgoberCarpenter2024}
+     \item[2024] \tab{}\countthis\citejournalarticle{ChenGober2023}
+     \item[2024] \tab{}\countthis\citejournalarticle{Jerzak2024}
+     \item[2024] \tab{}\countthis\citejournalarticle{LibgoberSciData2024}
+     \item[2023] \tab{}\countthis\citejournalarticle{PashleyLibgoberEtAl2023}
+    \item[2023]	\tab{}\countthis\citejournalarticle{LibgoberRashin2023}
+    \item[2023] \tab{}\countthis\citejournalarticle[]{Abi-Hassan2023}
+    \item[2023] \tab{}\countthis\citejournalarticle{libgober2023identifying}
+    \item[2020] \tab{}\countthis\citejournalarticle{Libgober2020}
+    \item[2020] \tab{}\countthis\citejournalarticle{Libgober2020b}
+    \item[2020] \tab{}\countthis\citejournalarticle{Carpenter2020}
     \end{tablist}
     
 
@@ -260,11 +277,11 @@
 
     \subsection*{Other Publications}
     \begin{tablist}
-    \item[2024] \tab{}\citechapter{Libgober2024} 
-    \item[2023] \tab{}\citechapter{Carpentera}
-    \item[2020] \tab{}\citejournalarticle{Libgober2019}
-    \item[2018] \tab{}\citejournalarticle{Carpenter2018}
-    \item[2015] \tab{}\citejournalarticle{Libgober2015a}
+    \item[2024] \tab{}\countthis\citechapter{Libgober2024} 
+    \item[2023] \tab{}\countthis\citechapter{Carpentera}
+    \item[2020] \tab{}\countthis\citejournalarticle{Libgober2019}
+    \item[2018] \tab{}\countthis\citejournalarticle{Carpenter2018}
+    \item[2015] \tab{}\countthis\citejournalarticle{Libgober2015a}
     \end{tablist}
     
 	\subsection*{Working Papers\footnote[2]{Drafts of all working papers are available at \href{https://brianlibgober.com}{https://brianlibgober.com}.}}
@@ -282,13 +299,15 @@
     \section*{Grants}
 	\begin{tablist}
 	\item[2022-25]	\tab{}National Science Foundation, ``Unpacking Compound Treatments in Email Audit Experiments,'' \$403,882
-		\item[2024] \tab{}Northwestern University, Dependent Care Professional Travel Grant, \$1,345
+    \item[2024-25] \tab{}Northwestern Undergraduate RA Program Committee, \$3,250.
+    \item[2024] \tab{}Institute for Policy Research, Summer Undergraduate RA Award, \$6,300 
+    \item[2024] \tab{}Northwestern University, Dependent Care Professional Travel Grant, \$1,345
+    \item[2024]	\tab{}Northwestern, Department of Political Science, Farrell Fellowship Program, \$8,000.
 	\item[2024] \tab{}Buffett Institute for Global Affairs, Global Collaboration Grant, \$2,500
 	\item[2023] \tab{}Institute for Policy Research, Graduate Student RA Award, \$41,736 
-	\item[2023]	\tab{}Institute for Policy Research, Undergraduate RA Award, \$5,950
+	\item[2023]	\tab{}Institute for Policy Research, Summer Undergraduate RA Award, \$5,950
 	\item[2023]	\tab{}Northwestern, Department of Political Science, Farrell Fellowship Program, \$7,500.
-	\end{tablist}
-	
+	\end{tablist}	
 	
     \section*{Awards}
 	
@@ -300,7 +319,8 @@
     \section*{Fellowships}
     
     \begin{tablist}
-    \item[2025] \tab{}Alexander von Humboldt Foundation Research Fellowship for Experienced Researchers.
+    \item[2025] \tab{}Center for Study of Democratic Politics Visiting Research Fellowship.  \$104,000.
+    \item[2025] \tab{}Alexander von Humboldt Foundation Research Fellowship for Experienced Researchers. €25,600.
         \item[2024] \tab{}Stanford CASBS Fellowship to attend the Summer Institute on Organizations and their Effectiveness.
     \item[2016-18] \tab{}Stone PhD Scholar in Inequality and Wealth Concentration, Harvard Kennedy School.
     \item[2015] \tab{}Terence M. Considine Fellowship in Law and Economics, Harvard Law School.
@@ -423,8 +443,18 @@
     \begin{tablist}
     \item Andrew Saab
     \item Joshua Corona
+
+
     \end{tablist}
-	
+    \subsection*{Research Assistants and Collaborators}
+    Arne Holverscheid (RA 2023-2024), Andrew Saab (RA 2022-2023)
+    \section*{Undergraduate Advising}
+    \subsection*{Independent Studies}
+    \begin{tablist}
+    \item Mathieu Rojas Egoavil - W25
+    \end{tablist}
+    \subsection*{Research Assistants}
+    Aldiyar Orazalin (2025-), Jinhe Zhao (2025-), Enzo Banal (2024-), Neil Arora (2024-), Jesse Chen (2024-), Mathieu Rojas Egoavil (2023-2024), Jamie Gall (2023-2024), Rick Brown (2022-2023),  Kurtis Brian Nelson (2022-2023). 
     \section*{Teaching}
 	
 	\subsection*{Northwestern University}
@@ -493,7 +523,10 @@
     \end{itemize}
 	    
     \section*{Departmental Service}
-    
+    \subsection*{Northwestern University}
+    \begin{tablist}
+        \item[2022-] \tab{}American Politics Speaker Series (co-organizer)
+    \end{tablist}
     \subsection*{University of California San Diego}
     \begin{tablist}
         \item[2021-] \tab{}Law and Policy Ad Hoc Exploratory Committee.

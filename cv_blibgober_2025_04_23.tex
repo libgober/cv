@@ -1,0 +1,249 @@
+%!TeX program = pdflatex
+% Brian Libgober's Curriculum Vitae
+% Email: blibgober@ucsed.edu
+% Web: https://brianlibgober.com/
+% Repo: https://github.com/libgober/cv
+
+\documentclass[12pt,letterpaper]{report}
+
+\usepackage[T1]{fontenc} % output T1 font encoding (8-bit) for accented characters as single glyph
+\usepackage[strict,autostyle]{csquotes} % smart and nestable quote marks
+\usepackage[USenglish]{babel} % regionalize hyphens, quote marks, etc automatically
+\usepackage{microtype}% improve text appearance with kerning, etc
+\usepackage{datetime} % enable formatting of date output
+\usepackage{tabto}    % make nice tabbing
+\usepackage{hyperref} % enable hyperlinks and pdf metadata
+\usepackage{geometry} % manually set page margins
+\usepackage{enumitem} % enumerate with [resume] option
+\usepackage{titlesec} % allow custom section fonts
+\usepackage{setspace} % custom line spacing
+\usepackage[backend=biber,isbn=false,eprint=false,url=false,maxcitenames=50]{biblatex} %bib files
+\usepackage[symbol]{footmisc} %cool footnotes
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% what is your name?
+
+\newcommand{\myname}{Brian Libgober}
+
+% select default typefaces
+\usepackage{ebgaramond} % document's serif typeface
+\usepackage{helvet}     % document's sans serif typeface
+
+% how far to tab for list items with left-aligned date: different fonts need different widths
+\newcommand{\listtabwidth}{1.7cm}
+
+% define font to use as document's title
+\newcommand{\namefont}[1]{{\normalfont\bfseries\Huge{#1}}}
+
+% set section heading fonts and before/after spacing
+\SetTracking{encoding=*, family=\sfdefault}{30} % increase sans serif headings tracking
+\titleformat{\section}{\lsstyle\sffamily\small\bfseries\uppercase}{}{}{}{}
+\titlespacing{\section}{0pt}{30pt plus 4pt minus 4pt}{8pt plus 2pt minus 2pt}
+
+% set subsection heading fonts and before/after spacing
+\titleformat{\subsection}{\lsstyle\sffamily\footnotesize\bfseries}{}{}{}{}
+\titlespacing{\subsection}{0pt}{16pt plus 4pt minus 4pt}{4pt plus 2pt minus 2pt}
+
+% set page margins (assumes letter paper)
+\geometry{body={6.5in, 9.0in},
+    left=1.0in,
+    top=1.0in}
+
+% prevent paragraph indentation
+\setlength\parindent{0em}
+
+% set line spacing
+\setstretch{0.9}
+
+% define space between list items
+\newcommand{\listitemspace}{0.25em}
+
+% make unordered lists without bullets and use compact spacing
+\renewenvironment{itemize}
+{\begin{list}{}{\setlength{\leftmargin}{0em}
+                \setlength{\parskip}{0em}
+                \setlength{\itemsep}{\listitemspace}
+                \setlength{\parsep}{\listitemspace}}}
+{\end{list}}
+
+% make tabbed lists so content is left-aligned next to years
+\TabPositions{\listtabwidth}
+\newlist{tablist}{description}{3}
+\setlist[tablist]{leftmargin=\listtabwidth,
+    labelindent=0em,
+    topsep=0em,
+    partopsep=0em,
+    itemsep=\listitemspace,
+    parsep=\listitemspace,
+    font=\normalfont}
+
+% print only the month and year when using \today
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
+% define hyperlink appearance and metadata for pdf properties
+\hypersetup{
+    colorlinks  = true,
+    urlcolor    = black,
+    pdfauthor   = {\myname},
+    pdfkeywords = {city planning, housing, street networks, transportation, urban design, urban informatics},
+    pdftitle    = {\myname: Curriculum Vitae},
+    pdfsubject  = {Curriculum Vitae},
+    pdfpagemode = UseNone
+}
+
+%setup bibliography
+    \addbibresource{LibgoberPublications.bib}
+
+
+\DeclareCiteCommand{\citejournalarticle}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+    \usebibmacro{journal}%
+    \usebibmacro{doi+eprint+url}%
+    \usebibmacro{author}.%
+    }
+    {\usebibmacro{postnote}}
+    
+\DeclareCiteCommand{\citeworkingpaper}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+    \usebibmacro{doi+eprint+url}%
+    \usebibmacro{author}.
+    %\usebibmacro{journal}
+    }
+    {\usebibmacro{postnote}}
+	
+	
+\newbibmacro*{publisher+location}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}
+    {\setunit*{\addcolon\space}}%
+  \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \newunit}
+  
+  
+\DeclareCiteCommand{\citechapter}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{title}%
+	\usebibmacro{author}%
+	\addperiod%
+    \space%
+	In\space%
+	\usebibmacro{booktitle}%
+    %\usebibmacro{doi+eprint+url}%
+    \usebibmacro{editor}\space%
+	\usebibmacro{publisher+location}%    
+	 }
+    {\usebibmacro{postnote}}
+    
+%%%%%%%%%%%%%%% CUSTOM COMMANDS to AVOID MISTAKES
+
+\newcommand{\talk}[4]{\item[#1]{\tab{}#3. \enquote{#2,} #4.}} %{year}{title}{location}{day}
+    %\item[2020] \tab{}\enquote{Agency Failure and Individual Accountability,} Department of Political Science, Georgetown University, Jan 24.
+\newcommand{\SPSA}{Southern Political Science Association (SPSA) Annual Conference}
+\newcommand{\APSA}{American Political Science Association (APSA) Annual Conference}
+\newcommand{\MPSA}{Midwestern Political Science Association (MPSA) Annual Conference}
+\newcommand{\course}[4]{\item[#1] \tab{}#3 (#4). #2.} %{year}{semester}{title}{level}{role} 
+\newcommand{\tacourse}[5]{\item[#1] \tab{}#3 (#4). #5. #2.} %{year}{semester}{title}{level}{role} 
+
+\usepackage{marginnote}
+\usepackage{etoolbox} % For counter manipulation
+
+% Set up a counter for publications
+\newcounter{pubcount}
+\setcounter{pubcount}{16} % Start the counter at your highest number
+
+\newcommand{\countthis}{%
+    \marginnote{No. \arabic{pubcount}}\addtocounter{pubcount}{-1}
+}
+
+
+\begin{document}
+	\pagestyle{fancy}
+	\fancyhf{}
+    \fancyfoot[C]{\thepage}  % Page number centered in the footer
+    \renewcommand{\footrulewidth}{0pt}  % Remove footer rule
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead[R]{
+	\ifthenelse{\value{page}=1}{
+%	\begin{tikzpicture}
+%	\clip (0,0)  circle (10mm) ;
+%	\node[anchor=center] at (0,0) {\includegraphics[width=20mm]{polysciatnu.jpg}}; 
+	%adjust this coordinate to move image
+%	\end{tikzpicture}
+	}{%endfirst page
+	}
+	}
+    \raggedright{}
+
+    % display your name as the document title
+    \begin{minipage}[t]{0.6\textwidth}
+	\raggedright{}
+    \namefont{\myname}
+	\end{minipage}
+	\hfill
+    % affiliation and contact info blocks
+    \vspace{1em}
+    \begin{minipage}[t]{0.6\textwidth}
+        % current primary affiliation, left-aligned
+        \flushleft{} Department of Political Science \\
+         Northwestern University
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.395\textwidth}
+        % contact info details, right-aligned
+        \flushright{}
+        \href{mailto:brian.libgober@northwestern.edu}{brian.libgober@northwestern.edu} \\
+        \href{https://brianlibgober.com}{brianlibgober.com} \\
+         +1 708 642 4741 \\
+        %\href{https://github.com/libgober/cv/raw/main/cv-blibgober.pdf}{CV Latest Version}
+    \end{minipage}
+
+    \section*{Education}
+
+    \begin{tablist}
+
+        \item[Ph.D.] \tab{}Government, Harvard University, 2018 
+        \item[M.A.]  \tab{}Statistics, Harvard University, 2017
+        \item[J.D.]  \tab{}University of Michigan Law School, \textit{cum laude}, 2015
+        \item[B.A.]  \tab{}Mathematics and Philosophy, University of Chicago, \textit{with honors}, 2010
+
+    \end{tablist}
+
+    \section*{Appointments}
+
+    \begin{tablist}
+        \item[2025--26] \tab{}Princeton University \\
+                       Visiting Research Scholar, School of Public and International Affairs \\
+                       Fellow, Center for the Study of Democratic Politics \\
+
+
+        \item[2022--]  \tab{}Northwestern University\\
+                        Assistant Professor, Department of Political Science \\
+                        Assistant Professor (by courtesy), Pritzker School of Law \\
+                        Faculty Fellow, Institute for Policy Research \\
+                        
+                        
+        \item[2022--]   \tab{Yale Law School}\\
+                        Senior Research Scholar \\
+                        
+        \item[2020--22]   \tab{}University of California, San Diego \\
+                             Assistant Professor, School of Global Policy and Strategy \\
+
+        \item[2018--20] \tab{}Yale University \\
+                             Postdoctoral Associate, Department of Political Science \\ 
+
+    \end{tablist}
+
+    \section*{Brief Bio}
+    Brian Libgober is a political scientist and legal scholar who works on topics related to the design of regulatory bodies and bureaucratic institutions. Much of his work has focused on financial policymaking at the US federal level. He has authored more than twenty academic articles, which have appeared in top disciplinary journals such as  \textit{The Journal of Politics}, \textit{Perspectives on Politics}, \textit{The Quarterly Journal of Political Science}, and the \textit{Journal of Public Administration Research and Theory}. His work has been supported by the U.S. National Science Foundation, Germany's Alexander von Humboldt Foundation, and various private grantmakers.  In 2023, he was recognized with an Emerging Scholar Award by the American Political Science Association, "given to a scholar not more than five years beyond the PhD who has made important contributions to the study of the American political economy."
+
+\end{document}
