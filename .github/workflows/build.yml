@@ -7,6 +7,8 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to allow pushing commits
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -14,8 +16,8 @@ jobs:
         uses: xu-cheng/latex-action@v4
         with:
           root_file: cv_blibgober2.tex
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v4
+      - name: Commit compiled PDF
+        uses: EndBug/add-and-commit@v9
         with:
-          name: PDF
-          path: cv_blibgober2.pdf
+          add: 'cv_blibgober2.pdf'     # path to file
+          message: 'Add compiled PDF via CI'
