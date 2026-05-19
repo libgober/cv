@@ -297,7 +297,7 @@
 
 #let render-service-dates(item) = {
   if has-field(item, "ongoing") and item.ongoing {
-    [#item.date_star\--]
+    [#item.date_start\--]
   } else if has-field(item, "date_end") and item.date_start != item.date_end {
     [#item.date_start\--#item.date_end]
   } else {
