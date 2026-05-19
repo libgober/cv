@@ -83,67 +83,6 @@
 
 == External Grants and Fellowships
 
-
-#let eg = grants.at(0)
-
-#let has-field(item, key) = {
-  key in item and item.at(key) != none and item.at(key) != ""
-}
-
-#let date-range(item) = {
-  if has-field(item, "date_end") {
-    if item.date_start == item.date_end {
-      [#item.date_start]
-    } else {
-        [#item.date_start - #item.date_end]
-    }
-  } else {
-    [#item.date_start]
-  }
-}
-
-
-#let render-quoted-title(item, has-following: false) = {
-  if has-following {
-    ["#item.name,"]
-  } else {
-    ["#item.name"]
-  }
-}
-
-#let render-award(item) = {
-  let parts = ()
-
-  if has-field(item, "organization") {
-    parts.push(strong(item.organization))
-  }
-  
-  if has-field(item, "name") {
-    parts.push([-- #item.name])
-}
-
-  if has-field(item, "award_number") {
-    parts.push(item.award_number)
-  }
-
-  
-  if has-field(item, "amount") {
-    parts.push([-- #item.amount])
-  }
-
-  block(below: 1em, breakable: false)[
-    #grid(
-      columns: (4.8em, 1fr),
-      column-gutter: 0.9em,
-      align(left)[#date-range(item)],
-      [
-        #parts.join[ ].
-      ],
-    )
-  ]
-}
-
-
 #for item in grants {
   if item.source == "external" {
    render-award(item)  
@@ -214,43 +153,6 @@
 
 === Dissertation Committees
 
-
-
-#let render-placement(p) = {
-  if has-field(p, "title") and has-field(p, "employer") {
-    [#p.title, #p.employer]
-  } else if has-field(p, "title") {
-    [#p.title]
-  } else if has-field(p, "employer") {
-    [#p.employer]
-  } else {
-    []
-  }
-}
-
-#let render-placements(placements) = {
-  let parts = ()
-
-  for p in placements {
-    parts.push(render-placement(p))
-  }
-
-  parts.join[; ]
-}
-
-#let render-former-committee(item) = block(below: 0.5em, breakable: false)[
-  #grid(
-    columns: (2em, 1fr),
-    column-gutter: 0.9em,
-    align(left)[#item.year],
-    [
-      #linked-name(item), #item.phd_institution\
-      #if has-field(item, "placements") and item.placements.len() > 0 {
-        [#render-placements(item.placements)]
-      }
-    ],
-  )
-]
 
 #for item in advising.graduate.former_committees {
   render-former-committee(item)
