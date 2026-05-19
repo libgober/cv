@@ -1,5 +1,8 @@
 name: Build CV
 
+permissions:
+  contents: write
+  
 on:
   push:
     branches: [main]
@@ -35,7 +38,7 @@ jobs:
         with:
           name: cv-pdf
           path: cv.pdf
-          
+
       - name: Commit updated CV PDF
         run: |
           git config user.name "github-actions[bot]"
