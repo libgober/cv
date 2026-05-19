@@ -28,7 +28,7 @@ jobs:
       - name: Compile CV
         run: |
           mkdir -p output
-          typst compile typst/cv.typ output/cv.pdf
+          typst compile cv.typ cv.pdf
 
       - name: Upload CV PDF
         uses: actions/upload-artifact@v4
