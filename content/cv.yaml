@@ -32,22 +32,27 @@ advising:
       - name: "Aldiyar Orazalin"
         institution: "Northwestern University"
         date_start: "2025"
+        date_end: "2025"
 
       - name: "Jinhe Zhao"
         institution: "Northwestern University"
         date_start: "2025"
+        date_end: "2025"
 
       - name: "Enzo Banal"
         institution: "Northwestern University"
         date_start: "2024"
+        date_end: "2024"
 
       - name: "Neil Arora"
         institution: "Northwestern University"
         date_start: "2024"
+        date_end: "2025"
 
       - name: "Jesse Chen"
         institution: "Northwestern University"
         date_start: "2024"
+        date_end: "2025"
 
       - name: "Mathieu Rojas Egoavil"
         institution: "Northwestern University"
