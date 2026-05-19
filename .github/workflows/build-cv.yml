@@ -1,0 +1,37 @@
+name: Build CV
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.typ"
+      - "content/**"
+      - ".github/workflows/build-cv.yml"
+  pull_request:
+    paths:
+      - "**.typ"
+      - "content/**"
+      - ".github/workflows/build-cv.yml"
+  workflow_dispatch:
+
+jobs:
+  build-cv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v5
+
+      - name: Compile CV
+        run: |
+          mkdir -p output
+          typst compile typst/cv.typ output/cv.pdf
+
+      - name: Upload CV PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: cv.pdf
