@@ -16,6 +16,14 @@ on:
       - "content/**"
       - ".github/workflows/build-cv.yml"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Build even if inputs are unchanged"
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: "17 7 * * 1,4"
 
 jobs:
   build-cv:
@@ -33,32 +41,75 @@ jobs:
           repository: libgober/cv-data
           path: cv-data
           ref: main
+
+      - name: Check build inputs
+        id: build-inputs
+        run: |
+          cv_input_hash="$(
+            git -C cv ls-files -s \
+              "*.typ" \
+              "content/**" \
+              ".github/workflows/build-cv.yml" \
+              | sha256sum \
+              | cut -d " " -f 1
+          )"
+          cv_data_sha="$(git -C cv-data rev-parse HEAD)"
+          state_file="cv/.build-state"
+
+          echo "cv_input_hash=${cv_input_hash}" >> "$GITHUB_OUTPUT"
+          echo "cv_data_sha=${cv_data_sha}" >> "$GITHUB_OUTPUT"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+            echo "Manual force build requested."
+          elif [ -f "$state_file" ] \
+            && grep -qx "cv-inputs=${cv_input_hash}" "$state_file" \
+            && grep -qx "cv-data=${cv_data_sha}" "$state_file"; then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            echo "Build inputs unchanged."
+          else
+            echo "build=true" >> "$GITHUB_OUTPUT"
+            echo "Build inputs changed or no previous state was found."
+          fi
       
       - name: Stage CV data
+        if: steps.build-inputs.outputs.build == 'true'
         run: |
           cp cv-data/cv.yaml cv/content/cv.yaml
           cp cv-data/publications.bib cv/content/publications.bib
       
       - name: Install Typst
+        if: steps.build-inputs.outputs.build == 'true'
         uses: typst-community/setup-typst@v5
 
       - name: Compile CV
+        if: steps.build-inputs.outputs.build == 'true'
         working-directory: cv
         run: |
           typst compile cv.typ cv.pdf
 
+      - name: Record build state
+        if: steps.build-inputs.outputs.build == 'true'
+        run: |
+          printf "cv-inputs=%s\ncv-data=%s\n" \
+            "${{ steps.build-inputs.outputs.cv_input_hash }}" \
+            "${{ steps.build-inputs.outputs.cv_data_sha }}" \
+            > cv/.build-state
+
       - name: Upload CV PDF
+        if: steps.build-inputs.outputs.build == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: cv-pdf
           path: cv/cv.pdf
 
       - name: Commit updated CV PDF
+        if: steps.build-inputs.outputs.build == 'true' && github.event_name != 'pull_request'
         working-directory: cv
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cv.pdf
+          git add cv.pdf .build-state
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
