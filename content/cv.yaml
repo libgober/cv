@@ -29,6 +29,10 @@ advising:
         date_end: "2027"
       
     ras:
+      - name: "Zachary Schwarz"
+        institution: "Northwestern University"
+        date_start: "2026"
+        date_end: "2026"
       - name: "Suditi Chala"
         institution: "Northwestern University"
         date_start: "2025"
@@ -704,18 +708,21 @@ publications:
       coauthors: 
         - "Chris Li"
       link: 
+      pdf: "files/papers/group_talk_2024.pdf"
       notes: 
     - title: "Who Governs the Association"
       coauthors: 
         - "Benjamin Egerod"
         - "Sebastian Thieme"
-      link: 
+      pdf: "files/papers/egerod_thieme_libgober_who_governs_20260612.pdf"
+      link: "https://www.ipr.northwestern.edu/our-work/working-papers/2026/wp-26-19.html"
       notes: 
     - title: "Backlash Against Repression: Evidence from Refugees Fleeing the Former Soviet Bloc"
       coauthors: 
         - "Valentin Bolotnyy"
         - "Mayya Komisarchik"
-      link: 
+      link: "https://www.ipr.northwestern.edu/documents/working-papers/2026/wp-26-18.pdf"
+      pdf: "files/papers/bolotnyyBacklashRepressionEvidence2026.pdf"
       notes: 
     - title: "Inequality in Administrative Democracy: Large-Sample Evidence from American Financial Regulation "
       coauthors:
