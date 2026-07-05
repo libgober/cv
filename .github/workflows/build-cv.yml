@@ -103,16 +103,18 @@ jobs:
           name: cv-pdf
           path: cv/cv.pdf
 
-      - name: Commit updated CV PDF
+      - name: Commit updated CV PDF and data
         if: steps.build-inputs.outputs.build == 'true' && github.event_name != 'pull_request'
         working-directory: cv
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cv.pdf .build-state
+
+          git add cv.pdf .build-state content/cv.yaml content/publications.bib
+
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update compiled CV PDF"
+            git commit -m "Update compiled CV PDF and CV data"
             git push
           fi
