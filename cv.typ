@@ -51,9 +51,9 @@
     
 = Publications
 
-== Book Project
+== Book
 
-#emph[White Shoes, Hidden Hands: Lawyers, Lobbying, and the Administrative State]. 
+#emph[White Shoes, Hidden Hands: Expertise, Advocacy, and Influence in Financial Regulation]. Chicago: University of Chicago Press. Accepted.
 
 == Articles in Peer-Reviewed Journals
 
