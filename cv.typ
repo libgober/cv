@@ -113,7 +113,7 @@
 
 == Invited Lectures
 
-#for item in presentations.presentations {
+#for item in presentations.invited_talks {
   render_talk(item)
 }
 
